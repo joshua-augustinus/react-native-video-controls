@@ -1043,11 +1043,11 @@ export default class VideoPlayer extends Component {
           {seekbarControl}
           <SafeAreaView
             style={[styles.controls.row, styles.controls.bottomControlGroup]}>
-            <View style={{ backgroundColor: 'blue' }}>{playPauseControl}</View>
+            {playPauseControl}
 
             {this.renderTitle()}
             {timerControl}
-            <View style={{ flex: 1, backgroundColor: 'red' }}>
+            <View style={{ flex: 1, backgroundColor: 'red', justifyContent:'flex-end' }}>
               {fullscreenControl}
             </View>
 
