@@ -261,8 +261,8 @@ export default class VideoPlayer extends Component {
    */
   _onEnd() {
     
-    this.setState({...this.state, paused:true});
-    this.seekTo(0);
+    this.state.paused = true;
+    this.seekTo(0);//this will set state
    }
 
   /**
