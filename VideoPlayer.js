@@ -1365,7 +1365,7 @@ const styles = {
       backgroundColor: 'transparent',
       color: '#FFF',
       fontSize: 11,
-      textAlign: 'right',
+      textAlign: 'left',
     },
   }),
   volume: StyleSheet.create({
