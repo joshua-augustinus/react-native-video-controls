@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Video from 'react-native-video';
 import {
   TouchableWithoutFeedback,
@@ -259,7 +259,11 @@ export default class VideoPlayer extends Component {
    * Either close the video or go to a
    * new page.
    */
-  _onEnd() {}
+  _onEnd() {
+    
+    this.state.paused = true;
+    this.seekTo(0);//this will set state
+   }
 
   /**
    * Set the error state to true which then
@@ -535,12 +539,10 @@ export default class VideoPlayer extends Component {
    * or duration. Formatted to look as 00:00.
    */
   calculateTime() {
-    if (this.state.showTimeRemaining) {
-      const time = this.state.duration - this.state.currentTime;
-      return `-${this.formatTime(time)}`;
-    }
+    const currentTime = this.formatTime(this.state.currentTime);
+    const wholeTime = this.formatTime(this.state.duration);
 
-    return this.formatTime(this.state.currentTime);
+    return `${currentTime}/${wholeTime}`;
   }
 
   /**
@@ -931,9 +933,7 @@ export default class VideoPlayer extends Component {
     const volumeControl = this.props.disableVolume
       ? this.renderNullControl()
       : this.renderVolume();
-    const fullscreenControl = this.props.disableFullscreen
-      ? this.renderNullControl()
-      : this.renderFullscreen();
+
 
     return (
       <Animated.View
@@ -952,7 +952,7 @@ export default class VideoPlayer extends Component {
             {backControl}
             <View style={styles.controls.pullRight}>
               {volumeControl}
-              {fullscreenControl}
+
             </View>
           </SafeAreaView>
         </ImageBackground>
@@ -981,13 +981,13 @@ export default class VideoPlayer extends Component {
     return (
       <View style={styles.volume.container}>
         <View
-          style={[styles.volume.fill, {width: this.state.volumeFillWidth}]}
+          style={[styles.volume.fill, { width: this.state.volumeFillWidth }]}
         />
         <View
-          style={[styles.volume.track, {width: this.state.volumeTrackWidth}]}
+          style={[styles.volume.track, { width: this.state.volumeTrackWidth }]}
         />
         <View
-          style={[styles.volume.handle, {left: this.state.volumePosition}]}
+          style={[styles.volume.handle, { left: this.state.volumePosition }]}
           {...this.player.volumePanResponder.panHandlers}>
           <Image
             style={styles.volume.icon}
@@ -1026,7 +1026,9 @@ export default class VideoPlayer extends Component {
     const playPauseControl = this.props.disablePlayPause
       ? this.renderNullControl()
       : this.renderPlayPause();
-
+    const fullscreenControl = this.props.disableFullscreen
+      ? this.renderNullControl()
+      : this.renderFullscreen();
     return (
       <Animated.View
         style={[
@@ -1044,8 +1046,13 @@ export default class VideoPlayer extends Component {
           <SafeAreaView
             style={[styles.controls.row, styles.controls.bottomControlGroup]}>
             {playPauseControl}
+
             {this.renderTitle()}
             {timerControl}
+            <View style={styles.controls.fullScreenContainer}>
+              {fullscreenControl}
+            </View>
+
           </SafeAreaView>
         </ImageBackground>
       </Animated.View>
@@ -1079,12 +1086,12 @@ export default class VideoPlayer extends Component {
           />
         </View>
         <View
-          style={[styles.seekbar.handle, {left: this.state.seekerPosition}]}
+          style={[styles.seekbar.handle, { left: this.state.seekerPosition }]}
           pointerEvents={'none'}>
           <View
             style={[
               styles.seekbar.circle,
-              {backgroundColor: this.props.seekColor || '#FFF'},
+              { backgroundColor: this.props.seekColor || '#FFF' },
             ]}
             pointerEvents={'none'}
           />
@@ -1334,7 +1341,12 @@ const styles = {
       flexDirection: 'row',
     },
     fullscreen: {
-      flexDirection: 'row',
+      
+    },
+    fullScreenContainer:{
+      flex:1,
+      flexDirection:'row',
+      justifyContent:'flex-end'
     },
     playPause: {
       position: 'relative',
@@ -1351,13 +1363,13 @@ const styles = {
       textAlign: 'center',
     },
     timer: {
-      width: 80,
+      width: 160,
     },
     timerText: {
       backgroundColor: 'transparent',
       color: '#FFF',
       fontSize: 11,
-      textAlign: 'right',
+      textAlign: 'left',
     },
   }),
   volume: StyleSheet.create({
