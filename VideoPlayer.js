@@ -1045,7 +1045,7 @@ export default class VideoPlayer extends Component {
 
             {this.renderTitle()}
             {timerControl}
-            <View style={{ flex: 1, backgroundColor: 'red', justifyContent:'flex-end' }}>
+            <View style={styles.controls.fullScreenContainer}>
               {fullscreenControl}
             </View>
 
@@ -1339,6 +1339,11 @@ const styles = {
     fullscreen: {
       
     },
+    fullScreenContainer:{
+      flex:1,
+      flexDirection:'row',
+      justifyContent:'flex-end'
+    },
     playPause: {
       position: 'relative',
       width: 80,
@@ -1354,7 +1359,7 @@ const styles = {
       textAlign: 'center',
     },
     timer: {
-      width: 80,
+      width: 160,
     },
     timerText: {
       backgroundColor: 'transparent',
