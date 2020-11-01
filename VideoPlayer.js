@@ -535,12 +535,10 @@ export default class VideoPlayer extends Component {
    * or duration. Formatted to look as 00:00.
    */
   calculateTime() {
-    if (this.state.showTimeRemaining) {
-      const time = this.state.duration - this.state.currentTime;
-      return `-${this.formatTime(time)}`;
-    }
+    const currentTime = this.formatTime(this.state.currentTime);
+    const wholeTime = this.formatTime(this.state.duration);
 
-    return this.formatTime(this.state.currentTime);
+    return `${currentTime}/${wholeTime}`;
   }
 
   /**
@@ -1339,7 +1337,7 @@ const styles = {
       flexDirection: 'row',
     },
     fullscreen: {
-      flexDirection: 'row',
+      
     },
     playPause: {
       position: 'relative',
