@@ -1046,7 +1046,10 @@ export default class VideoPlayer extends Component {
             {playPauseControl}
             {this.renderTitle()}
             {timerControl}
-            {fullscreenControl}
+            <View style={{ flex: 1 }}>
+              {fullscreenControl}
+            </View>
+
           </SafeAreaView>
         </ImageBackground>
       </Animated.View>
