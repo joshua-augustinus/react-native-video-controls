@@ -454,15 +454,12 @@ export default class VideoPlayer extends Component {
    * isFullscreen state.
    */
   _toggleFullscreen() {
-    let state = this.state;
+    const isFullScreen = !state.isFullscreen;
 
-    state.isFullscreen = !state.isFullscreen;
+    //This method has been modified to do nothing except call the callback
 
-    if (this.props.toggleResizeModeOnFullscreen) {
-      state.resizeMode = state.isFullscreen === true ? 'cover' : 'contain';
-    }
 
-    if (state.isFullscreen) {
+    if (isFullScreen) {
       typeof this.events.onEnterFullscreen === 'function' &&
         this.events.onEnterFullscreen();
     } else {
@@ -470,7 +467,6 @@ export default class VideoPlayer extends Component {
         this.events.onExitFullscreen();
     }
 
-    this.setState(state);
   }
 
   /**
