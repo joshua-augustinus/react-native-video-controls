@@ -454,7 +454,7 @@ export default class VideoPlayer extends Component {
    * isFullscreen state.
    */
   _toggleFullscreen() {
-    const isFullScreen = !state.isFullscreen;
+    const isFullScreen = !this.state.isFullscreen;
 
     //This method has been modified to do nothing except call the callback
 
