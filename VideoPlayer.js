@@ -260,10 +260,10 @@ export default class VideoPlayer extends Component {
    * new page.
    */
   _onEnd() {
-    
+
     this.state.paused = true;
     this.seekTo(0);//this will set state
-   }
+  }
 
   /**
    * Set the error state to true which then
@@ -286,26 +286,7 @@ export default class VideoPlayer extends Component {
    * two toggles fullscreen mode.
    */
   _onScreenTouch() {
-    if (this.player.tapActionTimeout) {
-      clearTimeout(this.player.tapActionTimeout);
-      this.player.tapActionTimeout = 0;
-      this.methods.toggleFullscreen();
-      const state = this.state;
-      if (state.showControls) {
-        this.resetControlTimeout();
-      }
-    } else {
-      this.player.tapActionTimeout = setTimeout(() => {
-        const state = this.state;
-        if (this.player.tapAnywhereToPause && state.showControls) {
-          this.methods.togglePlayPause();
-          this.resetControlTimeout();
-        } else {
-          this.methods.toggleControls();
-        }
-        this.player.tapActionTimeout = 0;
-      }, this.props.doubleTapTime);
-    }
+    this.methods.toggleControls();
   }
 
   /**
@@ -473,15 +454,12 @@ export default class VideoPlayer extends Component {
    * isFullscreen state.
    */
   _toggleFullscreen() {
-    let state = this.state;
+    const isFullScreen = !this.state.isFullscreen;
 
-    state.isFullscreen = !state.isFullscreen;
+    //This method has been modified to do nothing except call the callback
 
-    if (this.props.toggleResizeModeOnFullscreen) {
-      state.resizeMode = state.isFullscreen === true ? 'cover' : 'contain';
-    }
 
-    if (state.isFullscreen) {
+    if (isFullScreen) {
       typeof this.events.onEnterFullscreen === 'function' &&
         this.events.onEnterFullscreen();
     } else {
@@ -489,7 +467,6 @@ export default class VideoPlayer extends Component {
         this.events.onExitFullscreen();
     }
 
-    this.setState(state);
   }
 
   /**
@@ -1341,12 +1318,12 @@ const styles = {
       flexDirection: 'row',
     },
     fullscreen: {
-      
+
     },
-    fullScreenContainer:{
-      flex:1,
-      flexDirection:'row',
-      justifyContent:'flex-end'
+    fullScreenContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'flex-end'
     },
     playPause: {
       position: 'relative',
