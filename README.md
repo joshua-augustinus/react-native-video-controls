@@ -1,3 +1,8 @@
+# Modified Repo of react-native-controls
+Modifications:
+- Full screen toggle moved to bottom
+- When pressing full screen toggle button it doesn't do anything except for call the function handler
+
 # react-native-video-controls
 
 [![ci][1]][2]
