@@ -3,6 +3,7 @@ Modifications:
 - Full screen toggle moved to bottom
 - When pressing full screen toggle button it doesn't do anything except for call the function handler
 - Double tap no longer does anything (makes single tap more responsive). Previously single tap displays controls and double tap toggles full screen.
+- seekTo method has argument to also update the seeker position
 
 Original documentation below.
 
